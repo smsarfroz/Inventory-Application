@@ -1,10 +1,12 @@
 import express from 'express';
 import path from 'node:path';
+import indexRouter from './routes/indexRouter.js';
 const app = express();
 
-app.get("/", (req, res) => res.render("competitiveProgrammers"));
-app.get("/contribution", (req, res) => res.send("contribution page"));
-app.get("/maxRating", (req, res) => res.send("max rating page"));
+// app.get("/", (req, res) => res.render("competitiveProgrammers"));
+app.use("/", indexRouter);
+app.get("/contribution", (req, res) => res.render("contribution"));
+app.get("/maxRating", (req, res) => res.render("maxRating"));
 
 const currentDir = import.meta.dirname;
 const assetsPath = path.join(currentDir, "public");
@@ -16,5 +18,5 @@ app.use(express.urlencoded({ extended: true }));
 
 const PORT = 3000;
 app.listen(PORT, () => {
-  console.log(`My first Express app - listening on port ${PORT}!`);
+  console.log(`Express app - listening on port ${PORT}!`);
 });
