@@ -1,7 +1,10 @@
 import { Router } from "express";
-import indexController from "../controllers/indexController.js";
+import db from "../db/queries.js";
 const indexRouter = Router();
 
-indexRouter.get("/", indexController.getProgrammers);
+indexRouter.get("/", async (req, res) => {
+    const programmers = await db.getAllProgrammers();
+    res.render("competitiveProgrammers", {title: "Competitive Programmers", programmers: programmers});
+});
 
 export default indexRouter;

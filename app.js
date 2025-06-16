@@ -1,12 +1,13 @@
 import express from 'express';
 import path from 'node:path';
 import indexRouter from './routes/indexRouter.js';
+import contributionRouter from './routes/contributionRouter.js';
+import maxRatingRouter from './routes/maxRatingRouter.js';
 const app = express();
 
-// app.get("/", (req, res) => res.render("competitiveProgrammers"));
 app.use("/", indexRouter);
-app.get("/contribution", (req, res) => res.render("contribution"));
-app.get("/maxRating", (req, res) => res.render("maxRating"));
+app.use("/contribution", contributionRouter);
+app.use("/maxRating", maxRatingRouter);
 
 const currentDir = import.meta.dirname;
 const assetsPath = path.join(currentDir, "public");

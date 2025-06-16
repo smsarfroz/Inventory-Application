@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles.css">
-    <title>Competitive Programmers</title>
+    <title><%= title %></title>
 </head>
 <body>
     <%- include('navbar') %>
         <h2>Max Rating</h2>
         <button>Add title</button>
+
+        <%maxRatings.map(rating => {%>
+            <div>
+                <%=rating.maxrating%>
+            </div>
+        <%});%>
     <%- include('footer') %>
 </body>
 </html>
