@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <%- include('navbar') %>
+    <form action="/maxRating/<%= id %>/update" method="POST">
+        <label for="updateTitle">Title</label>
+        <input type="text" id="updateTitle" name="updateTitle" value="<%= ratingAtId %>">
+        <button type="submit">update</button>
+    </form>
+    <%- include('footer') %>
+</body>
+</html>

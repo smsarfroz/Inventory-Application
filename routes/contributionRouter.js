@@ -7,4 +7,13 @@ contributionRouter.get("/", async (req, res) => {
     res.render("contribution", {title: "Contribution", contributions: contributions});
 });
 
+contributionRouter.get("/new", async (req, res) => {
+    res.render("addContribution", { title: "addContribution"});
+});
+
+contributionRouter.post("/new", async (req, res) => {
+    await db.insertContribution(req.body.addContribution);
+    res.redirect("/contribution");
+});
+
 export default contributionRouter;

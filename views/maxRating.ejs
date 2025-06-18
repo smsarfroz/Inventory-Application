@@ -9,11 +9,19 @@
 <body>
     <%- include('navbar') %>
         <h2>Max Rating</h2>
-        <button>Add title</button>
+        <form action="/maxRating/new" method="GET">
+            <button>Add Title</button>
+        </form>
 
         <%maxRatings.map(rating => {%>
             <div>
                 <%=rating.maxrating%>
+                <form action="/maxRating/<%= rating.maxrating_id %>/update" method="GET">
+                    <button>update</button>
+                </form>
+                <form action="/maxRating/<%= rating.maxrating_id %>" method="DELETE">
+                    <button>delete</button>
+                </form>
             </div>
         <%});%>
     <%- include('footer') %>

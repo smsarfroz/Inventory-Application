@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <%- include('navbar') %>
+    <form action="/contribution/new" method="POST">
+        <label for="addContribution">Contribution</label>
+        <input type="text" id="addContribution" name="addContribution">
+        <button type="submit">Add</button>
+    </form>
+    <%- include('footer') %>
+</body>
+</html>

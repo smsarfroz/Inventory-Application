@@ -9,7 +9,9 @@
 <body>
     <%- include('navbar') %>
         <h2>Contribution</h2>
-        <button>Add contribution</button>
+        <form action="/contribution/new" method="GET">
+            <button>Add contribution</button>
+        </form>
 
         <%contributions.map(contribution => {%>
             <div>
