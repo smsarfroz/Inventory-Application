@@ -29,15 +29,15 @@ maxRatingRouter.post("/:id/update", async(req, res) => {
     res.redirect("/MaxRating");
 });
 
-maxRatingRouter.delete("/:id", async(req, res) => {
+
+maxRatingRouter.post("/:id/delete", async(req, res) => {
     const { id } = req.params;
     try {
-
         await db.deleteRatingAtid(id);
+        res.redirect("/maxRating");
     } catch (err) {
         throw err;
     }
-    res.redirect("/maxRating");
 });
 
 export default maxRatingRouter;

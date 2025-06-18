@@ -17,10 +17,10 @@
             <div>
                 <%=rating.maxrating%>
                 <form action="/maxRating/<%= rating.maxrating_id %>/update" method="GET">
-                    <button>update</button>
+                    <button type="submit">update</button>
                 </form>
-                <form action="/maxRating/<%= rating.maxrating_id %>" method="DELETE">
-                    <button>delete</button>
+                <form action="/maxRating/<%= rating.maxrating_id %>/delete" method="POST" style="display: inline;">
+                    <button type="submit">delete</button>
                 </form>
             </div>
         <%});%>

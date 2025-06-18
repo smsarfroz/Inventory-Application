@@ -16,6 +16,12 @@
         <%contributions.map(contribution => {%>
             <div>
                 <%=contribution.contribution%>
+                <form action="/contribution/<%= contribution.contribution_id %>/update" method="GET">
+                    <button type="submit">update</button>
+                </form>
+                <form action="/contribution/<%= contribution.contribution_id %>/delete" method="POST" style="display: inline;">
+                    <button type="submit">delete</button>
+                </form>
             </div>
         <%});%>
     <%- include('footer') %>

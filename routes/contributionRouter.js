@@ -16,4 +16,28 @@ contributionRouter.post("/new", async (req, res) => {
     res.redirect("/contribution");
 });
 
+
+contributionRouter.get("/:id/update", async(req, res) => {
+    const { id } = req.params;
+    const contributionAtId = await db.getContributionAtid(id) || 'empty';
+    res.render("/contribution/updateContribution", {title: "update contribution", contributionAtId: contributionAtId, id: id});
+});
+
+contributionRouter.post("/:id/update", async(req, res) => {
+    const { id } = req.params;
+    const newValue = req.body.updateContribution;
+    await db.updateContribution(id, newValue);
+    res.redirect("/contribution");
+});
+
+contributionRouter.post("/:id/delete", async(req, res) => {
+    const { id } = req.params;
+    try {
+        await db.deleteContributionAtid(id);
+        res.redirect("/contribution");
+    } catch (err) {
+        throw err;
+    }
+});
+
 export default contributionRouter;

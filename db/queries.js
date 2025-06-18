@@ -50,10 +50,10 @@ async function getRatingAtid(id) {
 
 async function deleteRatingAtid(id) {
     const query = {
-        text : 'DELETE maxRating FROM MaxRating WHERE maxRating_id = $1',
+        text : 'DELETE FROM MaxRating WHERE maxRating_id = $1',
         values : [id]
     }
-    await pool.query(query);
+    return await pool.query(query);
 }
 
 async function updateContribution(id, newValue) {
@@ -75,11 +75,12 @@ async function getContributionAtid(id) {
 
 async function deleteContributionAtid(id) {
     const query = {
-        text : 'DELETE contribution FROM Contribution WHERE contribution_id = $1',
+        text : 'DELETE FROM Contribution WHERE contribution_id = $1',
         values : [id]
     }
     await pool.query(query);
 }
+
 export default {
     getAllProgrammers,
     getAllContributions,
