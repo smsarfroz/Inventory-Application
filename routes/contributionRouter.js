@@ -20,7 +20,7 @@ contributionRouter.post("/new", async (req, res) => {
 contributionRouter.get("/:id/update", async(req, res) => {
     const { id } = req.params;
     const contributionAtId = await db.getContributionAtid(id) || 'empty';
-    res.render("/contribution/updateContribution", {title: "update contribution", contributionAtId: contributionAtId, id: id});
+    res.render("contribution/updateContribution", {title: "update contribution", contributionAtId: contributionAtId, id: id});
 });
 
 contributionRouter.post("/:id/update", async(req, res) => {

@@ -6,12 +6,12 @@
     <title><%= title %></title>
 </head>
 <body>
-    <%- include('navbar') %>
+    <%- include('../navbar') %>
     <form action="/contribution/<%= id %>/update" method="POST">
         <label for="updateContribution">Contribution</label>
         <input type="text" id="updateContribution" name="updateContribution" value="<%= contributionAtId %>">
         <button type="submit">update</button>
     </form>
-    <%- include('footer') %>
+    <%- include('../footer') %>
 </body>
 </html>

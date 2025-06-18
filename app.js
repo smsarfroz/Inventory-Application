@@ -18,7 +18,6 @@ app.use("/", indexRouter);
 app.use("/contribution", contributionRouter);
 app.use("/maxRating", maxRatingRouter);
 
-
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Express app - listening on port ${PORT}!`);
