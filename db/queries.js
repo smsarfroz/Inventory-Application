@@ -149,6 +149,30 @@ async function insertprogrammersmaxrating(id1, id2) {
     await pool.query(query);
 }
 
+async function getmaxratingbyprogrammer_id(id) {
+    const query = {
+        text : `SELECT maxrating FROM maxrating 
+                INNER JOIN programmersmaxrating
+                ON maxrating.maxrating_id = programmersmaxrating.maxrating_id
+                WHERE programmersmaxrating.programmer_id = $1`,
+        values : [id]
+    }
+    const { rows } = await pool.query(query);
+    if (!rows) return null;
+    return rows[0].maxrating;
+}
+
+async function getcontributionsbyprogrammer_id(id) {
+    const query = {
+        text : `SELECT contribution FROM contribution 
+                INNER JOIN programmerscontribution
+                ON contribution.contribution_id = programmerscontribution.contribution_id
+                WHERE programmerscontribution.programmer_id = $1`,
+        values : [id]
+    }
+    const { rows } = await pool.query(query);
+    return rows;
+} 
 export default {
     getAllProgrammers,
     getAllContributions,
@@ -167,5 +191,7 @@ export default {
     getContribution_idByName,
     getMaxRating_idByName,
     insertprogrammerscontribution,
-    insertprogrammersmaxrating
+    insertprogrammersmaxrating,
+    getmaxratingbyprogrammer_id,
+    getcontributionsbyprogrammer_id
 }

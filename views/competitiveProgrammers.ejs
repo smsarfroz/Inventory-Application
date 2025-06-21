@@ -17,7 +17,11 @@
             <div class="programmer">
                 <%=user.programmer%>
                 <h4>Contribution</h4>
+                <%user.contributionArray.map(contribution => {%>
+                   <p><% contribution %></p> 
+                <%});%>
                 <h4>Max Rating</h4>
+                <p><% user.maxrating %></p>
                 <button type="submit">update</button>
                 <button type="submit">delete</button>
             </div>

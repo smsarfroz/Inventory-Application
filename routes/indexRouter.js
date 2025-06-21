@@ -3,8 +3,26 @@ import db from "../db/queries.js";
 const indexRouter = Router();
 
 indexRouter.get("/", async (req, res) => {
-    const programmers = await db.getAllProgrammers();
-    res.render("competitiveProgrammers", {title: "Competitive Programmers", programmers: programmers, });
+    const result = await db.getAllProgrammers();
+    const programmers = []; 
+    const baseObject = {
+        programmer_id: 1,
+        progammer: "tourist",
+        imageurl: "https://userpic.codeforces.org/422/title/50a270ed4a722867.jpg",
+        contributionArray: [],
+        maxrating: "tourist"
+    };
+    result.map( async (element, i) => {
+        programmers.push({...baseObject});
+        programmers[i].programmer_id = element.programmer_id;
+        programmers[i].programmer_id = element.progammer;
+        programmers[i].imageurl = element.imageurl;
+        const maxrating = await db.getmaxratingbyprogrammer_id(element.programmer_id);
+        programmers[i].maxrating = maxrating;
+        const contributions = await db.getcontributionbyprogrammer_id(element.programmer_id);
+        programmers[i].contributionArray = contributions;
+    });
+    res.render("competitiveProgrammers", {title: "Competitive Programmers", programmers: programmers });
 });
 
 indexRouter.get("/new", async(req, res) => {
