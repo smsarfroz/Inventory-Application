@@ -29,7 +29,6 @@ maxRatingRouter.post("/:id/update", async(req, res) => {
     res.redirect("/MaxRating");
 });
 
-
 maxRatingRouter.post("/:id/delete", async(req, res) => {
     const { id } = req.params;
     try {

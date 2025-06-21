@@ -9,11 +9,17 @@
 <body>
     <%- include('navbar') %>
         <h2>Competitive Programmers</h2>
-        <button>Add Programmer</button>
+        <form action="/new" method="GET">
+            <button>Add Programmer</button>
+        </form>
 
         <%programmers.map(user => {%>
-            <div>
+            <div class="programmer">
                 <%=user.programmer%>
+                <h4>Contribution</h4>
+                <h4>Max Rating</h4>
+                <button type="submit">update</button>
+                <button type="submit">delete</button>
             </div>
         <%});%>
     <%- include('footer') %>

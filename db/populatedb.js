@@ -6,14 +6,9 @@ import 'dotenv/config'
 const SQL = `
 CREATE TABLE IF NOT EXISTS Programmers (
     programmer_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    programmer VARCHAR ( 255 ) 
+    programmer VARCHAR ( 255 ),
+    imageurl VARCHAR ( 255 )
 );
-
-INSERT INTO Programmers (programmer) 
-VALUES
-    ('tourist'),
-    ('jiangly'),
-    ('orzdevinwang');
 
 CREATE TABLE IF NOT EXISTS Contribution (
   contribution_id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY,

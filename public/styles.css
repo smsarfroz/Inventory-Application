@@ -58,3 +58,7 @@ nav {
     background-color: #1a73e8; 
     border-color: #88acec; 
 }
+
+.programmer {
+    outline: 1px solid black;
+}
