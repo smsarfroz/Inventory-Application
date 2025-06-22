@@ -12,16 +12,17 @@ indexRouter.get("/", async (req, res) => {
         contributionArray: [],
         maxrating: "tourist"
     };
-    result.map( async (element, i) => {
+    result.map(async (element, i) => {
         programmers.push({...baseObject});
         programmers[i].programmer_id = element.programmer_id;
-        programmers[i].programmer_id = element.progammer;
+        programmers[i].programmer = element.progammer;
         programmers[i].imageurl = element.imageurl;
         const maxrating = await db.getmaxratingbyprogrammer_id(element.programmer_id);
         programmers[i].maxrating = maxrating;
         const contributions = await db.getcontributionbyprogrammer_id(element.programmer_id);
         programmers[i].contributionArray = contributions;
     });
+    // console.log(programmers);
     res.render("competitiveProgrammers", {title: "Competitive Programmers", programmers: programmers });
 });
 
@@ -35,6 +36,7 @@ indexRouter.post("/new", async(req, res) => {
     const { name, image, contribution, maxRating } = req.body;
     await db.insertProgrammer(name, image);
     const programmer_id = await db.getProgrammer_idByName(name);
+    // console.log(name, programmer_id);
     const contribution_id = await db.getContribution_idByName(contribution);
     const maxrating_id = await db.getMaxRating_idByName(maxRating);
     await db.insertprogrammerscontribution(programmer_id, contribution_id);
@@ -43,19 +45,17 @@ indexRouter.post("/new", async(req, res) => {
 });
 
 indexRouter.get("/:id/update", async(req, res) => {
-
+    const { id } = req.params;
 });
 
 indexRouter.post("/:id/update", async(req, res) => {
-
-});
-
-indexRouter.get("/:id/delete", async(req, res) => {
-
+    const { id } = req.params;
 });
 
 indexRouter.post("/:id/delete", async(req, res) => {
-
+    const { id } = req.params;
+    await db.deleteprogrammer(id);
+    res.redirect('/');
 });
 
 export default indexRouter;

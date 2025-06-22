@@ -173,6 +173,25 @@ async function getcontributionsbyprogrammer_id(id) {
     const { rows } = await pool.query(query);
     return rows;
 } 
+
+async function deleteprogrammer(id) {
+    const query2 = {
+        text : "DELETE FROM programmerscontribution WHERE programmer_id = $1",
+        values : [id]
+    }
+    const query3 = {
+        text : "DELETE FROM programmersmaxrating WHERE programmer_id = $1",
+        values : [id]
+    }
+    const query1 = {
+        text : "DELETE FROM programmers WHERE programmer_id = $1",
+        values : [id]
+    }
+    await pool.query(query2);
+    await pool.query(query3);
+    await pool.query(query1);
+}
+
 export default {
     getAllProgrammers,
     getAllContributions,
@@ -193,5 +212,6 @@ export default {
     insertprogrammerscontribution,
     insertprogrammersmaxrating,
     getmaxratingbyprogrammer_id,
-    getcontributionsbyprogrammer_id
+    getcontributionsbyprogrammer_id,
+    deleteprogrammer
 }

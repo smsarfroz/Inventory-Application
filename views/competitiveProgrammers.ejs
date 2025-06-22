@@ -22,8 +22,12 @@
                 <%});%>
                 <h4>Max Rating</h4>
                 <p><% user.maxrating %></p>
-                <button type="submit">update</button>
-                <button type="submit">delete</button>
+                <form action="/<%= user.programmer_id %>/update" method="GET">
+                    <button type="submit">update</button>
+                </form>
+                <form action="/<%= user.programmer_id %>/delete" method="POST">
+                    <button type="submit">delete</button>
+                </form>
             </div>
         <%});%>
     <%- include('footer') %>
