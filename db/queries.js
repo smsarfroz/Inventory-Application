@@ -130,6 +130,9 @@ async function getcontributionbyprogrammer_id(id) {
 }
 
 async function insertprogrammerscontribution(id1, id2) {
+    // const res = await pool.query('SELECT * FROM programmerscontribution'); 
+    // console.log(res);
+    // console.log(id1, id2);
     const query = {
         text : `INSERT INTO programmerscontribution 
                 VALUES
@@ -150,6 +153,7 @@ async function insertprogrammersmaxrating(id1, id2) {
 }
 
 async function getmaxratingbyprogrammer_id(id) {
+    
     const query = {
         text : `SELECT maxrating FROM maxrating 
                 INNER JOIN programmersmaxrating
@@ -158,7 +162,8 @@ async function getmaxratingbyprogrammer_id(id) {
         values : [id]
     }
     const { rows } = await pool.query(query);
-    if (!rows) return null;
+    // console.log(rows);
+    // if (!rows) return null;
     return rows[0].maxrating;
 }
 
