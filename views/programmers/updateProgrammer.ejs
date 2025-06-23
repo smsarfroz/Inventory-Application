@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+</head>
+<body>
+    <%- include('../navbar') %>
+    <form action="/new" method="POST">
+        <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" value="<%= programmer %>">
+        </div>
+        
+        <div>
+            <label for="image">Image URL</label>
+            <input type="url" id="image" name="image" value="<%= imageurl %>">
+        </div>
+
+        <div>
+            <label for="contribution">Contribution</label>
+            <select name="contribution" id="contribution" size="4" multiple>
+                <%contributions.map(ele => {%>
+                    <option value="<%= ele.contribution %>" <%= contributionArray.includes(ele.contribution) ? 'selected' : '' %> ><%= ele.contribution %></option>
+                <%});%>
+            </select>
+        </div>
+        
+
+        <div>
+            <label for="maxRating">Title</label>
+            <select name="maxRating" id="maxRating">
+                <%maxRatings.map(ele => {%>
+                    <option value="<%= ele.maxrating %>" <%= maxrating === ele.maxrating ? 'selected' : '' %>><%= ele.maxrating %></option>
+                <%});%>
+            </select>
+        </div>
+
+        <button type="submit">Update</button>
+    </form>
+    <%- include('../footer') %>
+</body>
+</html>

@@ -15,6 +15,7 @@ async function getContribution_idByName(name) {
         values : [name]
     }
     const { rows } = await pool.query(query);
+    if (rows.length === 0) return null;
     return rows[0].contribution_id;
 }
 
@@ -215,6 +216,16 @@ async function deleteprogrammermaxratingbymaxratingId(id) {
     }
     await pool.query(query);
 }
+
+async function getprogrammernameimageurlbyId(id) {
+    const query = {
+        text : `SELECT programmer, imageurl FROM programmers
+                WHERE programmer_id = $1`,
+        values : [id]
+    }
+    const { rows } = await pool.query(query);
+    return rows[0];
+}
 export default {
     getAllProgrammers,
     getAllContributions,
@@ -238,5 +249,6 @@ export default {
     getcontributionsbyprogrammer_id,
     deleteprogrammer,
     deleteprogrammercontributionbycontributionId,
-    deleteprogrammermaxratingbymaxratingId
+    deleteprogrammermaxratingbymaxratingId,
+    getprogrammernameimageurlbyId
 }
