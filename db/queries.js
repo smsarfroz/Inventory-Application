@@ -165,6 +165,7 @@ async function getmaxratingbyprogrammer_id(id) {
     // console.log(rows);
     // if (!rows) return null;
     return rows[0].maxrating;
+    // return rows;
 }
 
 async function getcontributionsbyprogrammer_id(id) {

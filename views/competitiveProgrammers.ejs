@@ -17,11 +17,11 @@
             <div class="programmer">
                 <%=user.programmer%>
                 <h4>Contribution</h4>
-                <%user.contributionArray.map(contribution => {%>
-                   <p><% contribution %></p> 
+                <%user.contributionArray.map(object => {%>
+                   <p><%= object.contribution %></p> 
                 <%});%>
                 <h4>Max Rating</h4>
-                <p><% user.maxrating %></p>
+                <p><%= user.maxrating %></p>
                 <form action="/<%= user.programmer_id %>/update" method="GET">
                     <button type="submit">update</button>
                 </form>

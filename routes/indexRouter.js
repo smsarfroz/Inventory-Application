@@ -4,29 +4,29 @@ const indexRouter = Router();
 
 indexRouter.get("/", async (req, res) => {
     const result = await db.getAllProgrammers();
-    console.log(result);
-    let programmers = []; 
-    let baseObject = {
+    // console.log(result);
+    const programmers = []; 
+    const baseObject = {
         programmer_id: 1,
         programmer: 'tourist',
         imageurl: "https://userpic.codeforces.org/422/title/50a270ed4a722867.jpg",
         contributionArray: [],
         maxrating: "tourist"
     };
-    await result.map(async (element, i) => {
+    await Promise.all(result.map(async (element, i) => {
         const maxrating = await db.getmaxratingbyprogrammer_id(element.programmer_id);
         const contributions = await db.getcontributionbyprogrammer_id(element.programmer_id);
         programmers.push({...baseObject});
         programmers[i].programmer_id = element.programmer_id;
-        console.log(programmers[i].programmer, element.programmer);
-        programmers[i].programmer = element.progammer;
-        console.log(programmers[i].programmer, element.programmer);
+        programmers[i].programmer = element.programmer;
         programmers[i].imageurl = element.imageurl;
         programmers[i].maxrating = maxrating;
         programmers[i].contributionArray = contributions;
-        console.log(i, programmers[i]);
-    });
-    console.log(programmers);
+        // console.log(contributions);
+    }));
+    // console.log(programmers);
+    // console.log(programmers[0].contributionArray);
+    // console.log(programmers[0].maxrating);
     res.render("competitiveProgrammers", {title: "Competitive Programmers", programmers: programmers });
 });
 
@@ -37,14 +37,21 @@ indexRouter.get("/new", async(req, res) => {
 });
 
 indexRouter.post("/new", async(req, res) => {
-    const { name, image, contribution, maxRating } = req.body;
+    let { name, image, contribution, maxRating } = req.body;
     await db.insertProgrammer(name, image);
     const programmer_id = await db.getProgrammer_idByName(name);
-    // console.log(name, programmer_id);
-    const contribution_id = await db.getContribution_idByName(contribution);
+
+    // console.log(contribution);
+    
+    let contributionArray = (Array.isArray(contribution) ? contribution : [contribution]);
+    await Promise.all(contributionArray.map(async (contribution) => {
+        const contribution_id = await db.getContribution_idByName(contribution);
+        await db.insertprogrammerscontribution(programmer_id, contribution_id);
+    }));
+
     const maxrating_id = await db.getMaxRating_idByName(maxRating);
-    await db.insertprogrammerscontribution(programmer_id, contribution_id);
     await db.insertprogrammersmaxrating(programmer_id, maxrating_id);
+
     res.redirect('/');
 });
 
