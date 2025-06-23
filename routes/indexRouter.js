@@ -17,6 +17,7 @@ indexRouter.get("/", async (req, res) => {
         const maxrating = await db.getmaxratingbyprogrammer_id(element.programmer_id);
         const contributions = await db.getcontributionbyprogrammer_id(element.programmer_id);
         programmers.push({...baseObject});
+        console.log(element);
         programmers[i].programmer_id = element.programmer_id;
         programmers[i].programmer = element.programmer;
         programmers[i].imageurl = element.imageurl;

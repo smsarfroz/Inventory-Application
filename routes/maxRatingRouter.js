@@ -25,6 +25,7 @@ maxRatingRouter.get("/:id/update", async(req, res) => {
 maxRatingRouter.post("/:id/update", async(req, res) => {
     const { id } = req.params;
     const newValue = req.body.updateTitle;
+    await db.deleteprogrammermaxratingbymaxratingId(id);
     await db.updateRating(id, newValue);
     res.redirect("/MaxRating");
 });
@@ -32,6 +33,7 @@ maxRatingRouter.post("/:id/update", async(req, res) => {
 maxRatingRouter.post("/:id/delete", async(req, res) => {
     const { id } = req.params;
     try {
+        await db.deleteprogrammermaxratingbymaxratingId(id);
         await db.deleteRatingAtid(id);
         res.redirect("/maxRating");
     } catch (err) {
