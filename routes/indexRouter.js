@@ -74,10 +74,10 @@ indexRouter.get("/:id/update", async(req, res) => {
 });
 
 indexRouter.post("/:id/update", async(req, res) => {
-    console.log(req.params);
+    // console.log(req.params);
     const { id } = req.params;
-    console.log(req.body);
-    console.log(id);
+    // console.log(req.body);
+    // console.log(id);
     const { name, image, contribution, maxRating } = req.body;
     await db.updatenameimagebyId(name, image, id);
     await db.deletecontributionratingbyprogrammer_id(id);

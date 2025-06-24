@@ -48,17 +48,27 @@ nav {
     border: 5px solid white;
     border-radius: 8px;
     /* width: 100%; */
-    margin: 2rem 1rem;
+    margin: 1rem 1rem;
     color: white;
     padding: 1rem 1rem;
-    font-family:sans-serif;
-    display: flex;
+    font-weight: bold;
+    font-size: larger;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     justify-content: space-between;
-    align-items: center;
+    place-items: center;
     background-color: #1a73e8; 
     border-color: #88acec; 
 }
 
 .programmer {
     outline: 1px solid black;
+}
+
+h2 {
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size:xx-large;
+    display: flex;
+    justify-content: center;
 }
