@@ -7,7 +7,7 @@
 </head>
 <body>
     <%- include('../navbar') %>
-    <form action="/new" method="POST">
+    <form action="/<%= id %>/update" method="POST">
         <div>
             <label for="name">Name</label>
             <input type="text" id="name" name="name" value="<%= programmer %>">

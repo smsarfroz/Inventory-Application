@@ -163,8 +163,8 @@ async function getmaxratingbyprogrammer_id(id) {
         values : [id]
     }
     const { rows } = await pool.query(query);
-    // console.log(rows);
-    // if (!rows) return null;
+    console.log(rows);
+    if (rows.length === 0) return null;
     return rows[0].maxrating;
     // return rows;
 }
@@ -226,6 +226,31 @@ async function getprogrammernameimageurlbyId(id) {
     const { rows } = await pool.query(query);
     return rows[0];
 }
+
+async function updatenameimagebyId(name, image, id) {
+    const query = {
+        text : `UPDATE programmers
+                SET programmer = $1, imageurl = $2
+                WHERE programmer_id = $3`,
+        values : [name, image, id]
+    }
+    await pool.query(query);
+}
+
+async function deletecontributionratingbyprogrammer_id(id) {
+    const query1 = {
+        text : `DELETE FROM programmerscontribution
+                WHERE programmer_id = $1`,
+        values : [id]
+    }
+    const query2 = {
+        text : `DELETE FROM programmersmaxrating
+                WHERE programmer_id = $1`,
+        values : [id]
+    }
+    await pool.query(query1);
+    await pool.query(query2);
+}
 export default {
     getAllProgrammers,
     getAllContributions,
@@ -250,5 +275,7 @@ export default {
     deleteprogrammer,
     deleteprogrammercontributionbycontributionId,
     deleteprogrammermaxratingbymaxratingId,
-    getprogrammernameimageurlbyId
+    getprogrammernameimageurlbyId,
+    updatenameimagebyId,
+    deletecontributionratingbyprogrammer_id
 }
