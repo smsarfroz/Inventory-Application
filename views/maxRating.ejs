@@ -4,26 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title><%= title %></title>
 </head>
 <body>
     <%- include('navbar') %>
         <h2>Max Rating</h2>
         <form action="/maxRating/new" method="GET">
-            <button>Add Title</button>
+            <div class="buttonContainer"><button class="addButton">Add Title</button></div>
         </form>
 
-        <%maxRatings.map(rating => {%>
-            <div>
-                <%=rating.maxrating%>
-                <form action="/maxRating/<%= rating.maxrating_id %>/update" method="GET">
-                    <button type="submit">update</button>
-                </form>
-                <form action="/maxRating/<%= rating.maxrating_id %>/delete" method="POST" style="display: inline;">
-                    <button type="submit">delete</button>
-                </form>
-            </div>
-        <%});%>
+        <div class="categoriesContainer">
+            <%maxRatings.map(rating => {%>
+                <div class="categoryContainer">
+                    <%=rating.maxrating%>
+                    <div class="manipulateButtons">
+                        <form action="/maxRating/<%= rating.maxrating_id %>/update" method="GET">
+                            <button type="submit"><i class="fas fa-sync"></i></button>
+                        </form>
+                        <form action="/maxRating/<%= rating.maxrating_id %>/delete" method="POST" style="display: inline;">
+                            <button type="submit"><i class="fas fa-trash-alt"></i></button>
+                        </form>
+                    </div>
+                </div>
+            <%});%>
+        </div>
     <%- include('footer') %>
 </body>
 </html>

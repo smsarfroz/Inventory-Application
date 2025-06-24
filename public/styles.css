@@ -72,3 +72,53 @@ h2 {
     display: flex;
     justify-content: center;
 }
+
+.addButton {
+    height: 3vw;
+    width: 16vw;
+    border-radius: 4px;
+    border: none;
+    font-family:serif;
+    font-size: larger;
+    font-weight: bolder;
+    cursor: pointer;
+    background-color: #b3bccc;
+}
+
+.buttonContainer {
+    display: grid;
+    place-items: center;
+    margin: 2vw 0;
+}
+
+.categoriesContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.categoryContainer {
+    width: 40%;
+    height: 30px;
+    outline: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 11px;
+    font-weight: bold;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.manipulateButtons {
+    display: flex;
+    gap: 4px;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background-color: white;
+}
+
