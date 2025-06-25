@@ -177,8 +177,9 @@ select {
     height: 19vw;
 }
 .programmer {
-    outline: 1px solid blue;
+    /* outline: 1px solid blue; */
     width: 19.5vw;
+    box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
 }
 
 .programmersContainer {
