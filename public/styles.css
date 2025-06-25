@@ -125,7 +125,11 @@ button {
 }
 
 
-.inputContainer {
+/* .inputContainer {
+    width: 20vw;
+} */
+
+input {
     width: 20vw;
 }
 
@@ -154,3 +158,20 @@ button {
     justify-content: center;
     margin-top: 0;
 }
+
+.inputsContainer {
+    width: 20vw;
+    margin: 3vw auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+}
+
+select {
+    width: 20vw;
+}
+
+#contribution {
+    height: 2vw;
+}
+
