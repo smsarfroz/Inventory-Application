@@ -7,10 +7,15 @@
 </head>
 <body>
     <%- include('navbar') %>
+    <h2>Add New Title</h2>
     <form action="/maxRating/new" method="POST">
-        <label for="addTitle">Title</label>
-        <input type="text" id="addTitle" name="addTitle">
-        <button type="submit">Add</button>
+        <div class="addCategoryContainer">
+            <label for="addTitle" class="labelText">Title</label>
+            <br>
+            <input type="text" id="addTitle" name="addTitle" class="inputContainer">
+        </div>
+        <br>
+        <div class="buttonContainer"><button type="submit" class="AddButton">Add</button></div>
     </form>
     <%- include('footer') %>
 </body>

@@ -7,10 +7,15 @@
 </head>
 <body>
     <%- include('navbar') %>
-    <form action="/contribution/new" method="POST">
-        <label for="addContribution">Contribution</label>
-        <input type="text" id="addContribution" name="addContribution">
-        <button type="submit">Add</button>
+    <h2>Add New Contribution</h2>
+    <form action="/contribution/new" method="POST" class="form">
+        <div class="addCategoryContainer">
+            <label for="addContribution" class="labelText">Contribution</label>
+            
+            <input type="text" id="addContribution" name="addContribution" class="inputContainer">
+        </div>
+        <br>
+        <div class="buttonContainer"><button type="submit" class="AddButton">Add</button></div>
     </form>
     <%- include('footer') %>
 </body>

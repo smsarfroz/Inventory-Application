@@ -82,7 +82,9 @@ h2 {
     font-size: larger;
     font-weight: bolder;
     cursor: pointer;
-    background-color: #b3bccc;
+    background-color:#88acec;
+    margin-top: 2vw;
+    color: white;
 }
 
 .buttonContainer {
@@ -122,3 +124,33 @@ button {
     background-color: white;
 }
 
+
+.inputContainer {
+    width: 20vw;
+}
+
+.addCategoryContainer {
+    width: 20vw;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3vw;
+}
+
+
+.AddButton {
+    background-color: #88acec;
+    width: 8vw;
+    height: 2.6vw;
+    border-radius: 4px;
+    font-weight: bold;
+    color: white;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: large;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 0;
+}
