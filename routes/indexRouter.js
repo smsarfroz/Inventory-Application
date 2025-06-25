@@ -94,4 +94,60 @@ indexRouter.post("/:id/delete", async(req, res) => {
     res.redirect('/');
 });
 
+indexRouter.get("/programmers/contribution/:contri", async(req, res) => {
+    const { contri } = req.params;
+    try {
+        const result = await db.getAllProgrammers();
+        const programmers = await Promise.all(result.map(async (element, i) => {
+            const [maxrating, contributions] = await Promise.all([
+                db.getmaxratingbyprogrammer_id(element.programmer_id),
+                db.getcontributionbyprogrammer_id(element.programmer_id)
+            ]);
+            return {
+                programmer_id: element.programmer_id,
+                programmer: element.programmer,
+                imageurl: element.imageurl,
+                contributionArray: contributions,
+                maxrating: maxrating
+            };
+        }));
+        
+        const filteredProgrammers = programmers
+        .filter(programmer => programmer.contributionArray.some(obj => obj.contribution === contri));
+        
+        res.render("competitiveProgrammers", {title: "Competitive Programmers", programmers: filteredProgrammers });
+    } catch(error) {
+        console.error("Error:", error);
+        res.status(500).send("Internal Server Error");
+    }  
+});
+
+indexRouter.get("/programmers/maxrating/:rating", async(req, res) => {
+    const { rating } = req.params;
+    try {
+        const result = await db.getAllProgrammers();
+        const programmers = await Promise.all(result.map(async (element, i) => {
+            const [maxrating, contributions] = await Promise.all([
+                db.getmaxratingbyprogrammer_id(element.programmer_id),
+                db.getcontributionbyprogrammer_id(element.programmer_id)
+            ]);
+            return {
+                programmer_id: element.programmer_id,
+                programmer: element.programmer,
+                imageurl: element.imageurl,
+                contributionArray: contributions,
+                maxrating: maxrating
+            };
+        }));
+        
+        const filteredProgrammers = programmers
+        .filter(programmer => programmer.maxrating === rating);
+
+        res.render("competitiveProgrammers", {title: "Competitive Programmers", programmers: filteredProgrammers });
+    } catch(error) {
+        console.error("Error:", error);
+        res.status(500).send("Internal Server Error");
+    } 
+});
+
 export default indexRouter;

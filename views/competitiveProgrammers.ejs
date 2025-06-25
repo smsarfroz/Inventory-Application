@@ -31,12 +31,12 @@
                         <div class="contributionTag">
                             <h4>Contribution</h4>
                             <%user.contributionArray.map(object => {%>
-                               <button class="tagButton"><%= object.contribution %></button>
+                               <a href="/programmers/contribution/<%= object.contribution %>"><button class="tagButton"><%= object.contribution %></button></a>
                             <%});%>
                         </div>
                         <div class="ratingTag">
                             <h4>Max Rating</h4>
-                            <button class="tagButton"><%= user.maxrating %></button>
+                            <a href="/programmers/maxrating/<%= user.maxrating %>"><button class="tagButton"><%= user.maxrating %></button></a>
                         </div>
                     </div>
                 </div>
