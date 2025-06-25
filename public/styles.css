@@ -62,10 +62,6 @@ nav {
     border-color: #88acec; 
 }
 
-.programmer {
-    outline: 1px solid black;
-}
-
 h2 {
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size:xx-large;
@@ -82,7 +78,7 @@ h2 {
     font-size: larger;
     font-weight: bolder;
     cursor: pointer;
-    background-color:#88acec;
+    background-color:#0b58dd;
     margin-top: 2vw;
     color: white;
 }
@@ -143,7 +139,7 @@ input {
 
 
 .AddButton {
-    background-color: #88acec;
+    background-color:#0b58dd;
     width: 8vw;
     height: 2.6vw;
     border-radius: 4px;
@@ -169,9 +165,61 @@ input {
 
 select {
     width: 20vw;
+    height: 1.6vw;
 }
 
 #contribution {
     height: 2vw;
 }
 
+.profileImage {
+    width: 18.6vw;
+    height: 19vw;
+}
+.programmer {
+    outline: 1px solid blue;
+    width: 18.6vw;
+}
+
+.programmersContainer {
+    margin: 2vw 4vw;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: minmax(auto, repeat(auto, 1fr));
+    gap: 1.5vw;
+}
+
+.programmerName {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 30px;
+    font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.editdeleteContainer {
+    width: 3vw;
+    height: 1vw;
+    display: flex;
+    margin-top: 1vw;
+    /* margin-bottom: 1vw; */
+    margin-right: 0.4vw;
+    margin-left: auto;
+    padding: 5px;
+}
+
+.tagButton {
+    background-color: rgb(71, 71, 236);
+    color: white;
+    border-radius: 5px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.tagContainer {
+    margin: 0 1vw;
+    margin-top: 0.5vw;
+    margin-bottom: 1vw;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}

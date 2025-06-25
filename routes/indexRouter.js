@@ -14,10 +14,14 @@ indexRouter.get("/", async (req, res) => {
         maxrating: "tourist"
     };
     await Promise.all(result.map(async (element, i) => {
-        const maxrating = await db.getmaxratingbyprogrammer_id(element.programmer_id);
-        const contributions = await db.getcontributionbyprogrammer_id(element.programmer_id);
+        const [maxrating, contributions] = await Promise.all([
+            db.getmaxratingbyprogrammer_id(element.programmer_id),
+            db.getcontributionbyprogrammer_id(element.programmer_id)
+        ]);
+
         programmers.push({...baseObject});
         console.log(element);
+        console.log(programmers[i].programmer_id, element.programmer_id);
         programmers[i].programmer_id = element.programmer_id;
         programmers[i].programmer = element.programmer;
         programmers[i].imageurl = element.imageurl;
