@@ -7,37 +7,38 @@
 </head>
 <body>
     <%- include('../navbar') %>
+    <h2>Update Programmer</h2>
     <form action="/<%= id %>/update" method="POST">
-        <div>
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" value="<%= programmer %>">
-        </div>
-        
-        <div>
-            <label for="image">Image URL</label>
-            <input type="url" id="image" name="image" value="<%= imageurl %>">
+        <div class="inputsContainer">
+            <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" value="<%= programmer %>">
+            </div>
+            
+            <div>
+                <label for="image">Image URL</label>
+                <input type="url" id="image" name="image" value="<%= imageurl %>">
+            </div>
+            <div>
+                <label for="contribution">Contribution</label>
+                <select name="contribution" id="contribution" size="4" multiple>
+                    <%contributions.map(ele => {%>
+                        <option value="<%= ele.contribution %>" <%= contributionArray.includes(ele.contribution) ? 'selected' : '' %> ><%= ele.contribution %></option>
+                    <%});%>
+                </select>
+            </div>
+            
+            <div>
+                <label for="maxRating">Title</label>
+                <select name="maxRating" id="maxRating">
+                    <%maxRatings.map(ele => {%>
+                        <option value="<%= ele.maxrating %>" <%= maxrating === ele.maxrating ? 'selected' : '' %>><%= ele.maxrating %></option>
+                    <%});%>
+                </select>
+            </div>
         </div>
 
-        <div>
-            <label for="contribution">Contribution</label>
-            <select name="contribution" id="contribution" size="4" multiple>
-                <%contributions.map(ele => {%>
-                    <option value="<%= ele.contribution %>" <%= contributionArray.includes(ele.contribution) ? 'selected' : '' %> ><%= ele.contribution %></option>
-                <%});%>
-            </select>
-        </div>
-        
-
-        <div>
-            <label for="maxRating">Title</label>
-            <select name="maxRating" id="maxRating">
-                <%maxRatings.map(ele => {%>
-                    <option value="<%= ele.maxrating %>" <%= maxrating === ele.maxrating ? 'selected' : '' %>><%= ele.maxrating %></option>
-                <%});%>
-            </select>
-        </div>
-
-        <button type="submit">Update</button>
+        <div class="buttonContainer"><button type="submit" class="AddButton">Update</button></div>
     </form>
     <%- include('../footer') %>
 </body>

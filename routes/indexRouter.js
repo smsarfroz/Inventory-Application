@@ -3,36 +3,27 @@ import db from "../db/queries.js";
 const indexRouter = Router();
 
 indexRouter.get("/", async (req, res) => {
-    const result = await db.getAllProgrammers();
-    // console.log(result);
-    const programmers = []; 
-    const baseObject = {
-        programmer_id: 1,
-        programmer: 'tourist',
-        imageurl: "https://userpic.codeforces.org/422/title/50a270ed4a722867.jpg",
-        contributionArray: [],
-        maxrating: "tourist"
-    };
-    await Promise.all(result.map(async (element, i) => {
-        const [maxrating, contributions] = await Promise.all([
-            db.getmaxratingbyprogrammer_id(element.programmer_id),
-            db.getcontributionbyprogrammer_id(element.programmer_id)
-        ]);
+    try {
+        const result = await db.getAllProgrammers();
+        const programmers = await Promise.all(result.map(async (element, i) => {
+            const [maxrating, contributions] = await Promise.all([
+                db.getmaxratingbyprogrammer_id(element.programmer_id),
+                db.getcontributionbyprogrammer_id(element.programmer_id)
+            ]);
 
-        programmers.push({...baseObject});
-        console.log(element);
-        console.log(programmers[i].programmer_id, element.programmer_id);
-        programmers[i].programmer_id = element.programmer_id;
-        programmers[i].programmer = element.programmer;
-        programmers[i].imageurl = element.imageurl;
-        programmers[i].maxrating = maxrating;
-        programmers[i].contributionArray = contributions;
-        // console.log(contributions);
-    }));
-    // console.log(programmers);
-    // console.log(programmers[0].contributionArray);
-    // console.log(programmers[0].maxrating);
-    res.render("competitiveProgrammers", {title: "Competitive Programmers", programmers: programmers });
+            return {
+                programmer_id: element.programmer_id,
+                programmer: element.programmer,
+                imageurl: element.imageurl,
+                contributionArray: contributions,
+                maxrating: maxrating
+            };
+        }));
+        res.render("competitiveProgrammers", {title: "Competitive Programmers", programmers: programmers });
+    } catch(error) {
+        console.error("Error:", error);
+        res.status(500).send("Internal Server Error");
+    }    
 });
 
 indexRouter.get("/new", async(req, res) => {
