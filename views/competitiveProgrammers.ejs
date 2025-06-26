@@ -18,11 +18,9 @@
             <%programmers.map(user => {%>
                 <div class="programmer">
                     <div class="editdeleteContainer">
-                        <form action="/<%= user.programmer_id %>/update" method="GET">
-                            <button type="submit"><i class="fas fa-sync"></i></button>
-                        </form>
-                        <form action="/<%= user.programmer_id %>/delete" method="POST">
-                            <button type="submit"><i class="fas fa-trash-alt"></i></button>
+                        <a href="/<%= user.programmer_id %>/update"><button type="submit"><i class="fas fa-sync"></i></button></a>
+                        <form action="/<%= user.programmer_id %>/delete" method="POST" id="deleteForm-<%= user.programmer_id %>">
+                            <button type="button" onclick="submitWithPrompt('<%= user.programmer_id %>')"><i class="fas fa-trash-alt"></i></button>
                         </form>
                     </div>
                     <p class="programmerName"><%=user.programmer%></p>
@@ -41,7 +39,21 @@
                     </div>
                 </div>
             <%});%>
-        </div>
+        </div>  
     <%- include('footer') %>
+    <script>
+        function submitWithPrompt(programmerId) {
+            const password = prompt('Please enter the password:');
+            if (password === null) return; 
+            const form = document.getElementById(`deleteForm-${programmerId}`);
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'password';
+            hiddenInput.value = password;
+            
+            form.appendChild(hiddenInput);
+            form.submit();
+        }
+    </script>
 </body>
 </html>

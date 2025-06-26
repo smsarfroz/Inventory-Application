@@ -19,16 +19,29 @@
                 <div class="categoryContainer">
                     <%=rating.maxrating%>
                     <div class="manipulateButtons">
-                        <form action="/maxRating/<%= rating.maxrating_id %>/update" method="GET">
-                            <button type="submit"><i class="fas fa-sync"></i></button>
-                        </form>
-                        <form action="/maxRating/<%= rating.maxrating_id %>/delete" method="POST" style="display: inline;">
-                            <button type="submit"><i class="fas fa-trash-alt"></i></button>
+                        <a href="/maxRating/<%= rating.maxrating_id %>/update"><button type="submit"><i class="fas fa-sync"></i></button></a>
+                        
+                        <form action="/maxRating/<%= rating.maxrating_id %>/delete" method="POST" style="display: inline;" id="deleteForm-<%= rating.maxrating_id %>">
+                            <button type="button" onclick="submitWithPrompt('<%= rating.maxrating_id %>')"><i class="fas fa-trash-alt"></i></button>
                         </form>
                     </div>
                 </div>
             <%});%>
         </div>
     <%- include('footer') %>
+    <script>
+        function submitWithPrompt(ratingId) {
+            const password = prompt('Please enter the password:');
+            if (password === null) return; 
+            const form = document.getElementById(`deleteForm-${ratingId}`);
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'password';
+            hiddenInput.value = password;
+            
+            form.appendChild(hiddenInput);
+            form.submit();
+        }
+    </script>
 </body>
 </html>

@@ -73,23 +73,32 @@ indexRouter.post("/:id/update", async(req, res) => {
     const { id } = req.params;
     // console.log(req.body);
     // console.log(id);
-    const { name, image, contribution, maxRating } = req.body;
-    await db.updatenameimagebyId(name, image, id);
-    await db.deletecontributionratingbyprogrammer_id(id);
-    
-    let contributionArray = (Array.isArray(contribution) ? contribution : [contribution]);
-    await Promise.all(contributionArray.map(async (contribution) => {
-        const contribution_id = await db.getContribution_idByName(contribution);
-        await db.insertprogrammerscontribution(id, contribution_id);
-    }));
+    const { name, image, contribution, maxRating, password } = req.body;
+    if (password === process.env.password) {
+        await db.updatenameimagebyId(name, image, id);
+        await db.deletecontributionratingbyprogrammer_id(id);
+        
+        let contributionArray = (Array.isArray(contribution) ? contribution : [contribution]);
+        await Promise.all(contributionArray.map(async (contribution) => {
+            const contribution_id = await db.getContribution_idByName(contribution);
+            await db.insertprogrammerscontribution(id, contribution_id);
+        }));
 
-    const maxrating_id = await db.getMaxRating_idByName(maxRating);
-    await db.insertprogrammersmaxrating(id, maxrating_id);
-    res.redirect('/');
+        const maxrating_id = await db.getMaxRating_idByName(maxRating);
+        await db.insertprogrammersmaxrating(id, maxrating_id);
+        res.redirect('/');
+    } else {
+        res.redirect('/');
+    }
 });
 
 indexRouter.post("/:id/delete", async(req, res) => {
     const { id } = req.params;
+    const { password } = req.body;
+
+    if (!password || password !== process.env.password) {
+        return res.status(403).send("Invalid Password");
+    } 
     await db.deleteprogrammer(id);
     res.redirect('/');
 });

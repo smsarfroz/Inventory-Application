@@ -8,9 +8,18 @@
 <body>
     <%- include('navbar') %>
     <form action="/maxRating/<%= id %>/update" method="POST">
-        <label for="updateTitle">Title</label>
-        <input type="text" id="updateTitle" name="updateTitle" value="<%= ratingAtId %>">
-        <button type="submit">update</button>
+        <div class="inputsContainer">
+            <div>
+                <label for="updateTitle">Title</label>
+                <input type="text" id="updateTitle" name="updateTitle" value="<%= ratingAtId %>">
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="text" id="password" name="password" required>
+            </div>
+        </div>
+
+        <div class="buttonContainer"><button type="submit" class="AddButton">Update</button></div>
     </form>
     <%- include('footer') %>
 </body>

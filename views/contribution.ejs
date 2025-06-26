@@ -19,16 +19,29 @@
                 <div class="categoryContainer">
                     <%=contribution.contribution%>
                     <div class="manipulateButtons">
-                        <form action="/contribution/<%= contribution.contribution_id %>/update" method="GET">
-                            <button type="submit"><i class="fas fa-sync"></i></button>
-                        </form>
-                        <form action="/contribution/<%= contribution.contribution_id %>/delete" method="POST" style="display: inline;">
-                            <button type="submit"><i class="fas fa-trash-alt"></i></button>
+                        <a href="/contribution/<%= contribution.contribution_id %>/update"><button type="submit"><i class="fas fa-sync"></i></button></a>
+                        
+                        <form action="/contribution/<%= contribution.contribution_id %>/delete" method="POST" style="display: inline;" id="deleteForm-<%= contribution.contribution_id %>">
+                            <button type="button" onclick="submitWithPrompt('<%= contribution.contribution_id %>')"><i class="fas fa-trash-alt"></i></button>
                         </form>
                     </div>
                 </div>
             <%});%>
         </div>
     <%- include('footer') %>
+    <script>
+        function submitWithPrompt(contributionId) {
+            const password = prompt('Please enter the password:');
+            if (password === null) return; 
+            const form = document.getElementById(`deleteForm-${contributionId}`);
+            const hiddenInput = document.createElement('input');
+            hiddenInput.type = 'hidden';
+            hiddenInput.name = 'password';
+            hiddenInput.value = password;
+            
+            form.appendChild(hiddenInput);
+            form.submit();
+        }
+    </script>
 </body>
 </html>

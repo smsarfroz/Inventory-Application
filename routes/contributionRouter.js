@@ -26,13 +26,24 @@ contributionRouter.get("/:id/update", async(req, res) => {
 contributionRouter.post("/:id/update", async(req, res) => {
     const { id } = req.params;
     const newValue = req.body.updateContribution;
-    await db.deleteprogrammercontributionbycontributionId(id);
-    await db.updateContribution(id, newValue);
-    res.redirect("/contribution");
+    const { password } = req.body;
+
+    if (password === process.env.password) {
+        await db.deleteprogrammercontributionbycontributionId(id);
+        await db.updateContribution(id, newValue);
+        res.redirect("/contribution");
+    } else {
+        res.redirect("/contribution");
+    }
 });
 
 contributionRouter.post("/:id/delete", async(req, res) => {
     const { id } = req.params;
+    const { password } = req.body;
+
+    if (!password || password !== process.env.password) {
+        return res.status(403).send("Invalid Password");
+    } 
     try {
         await db.deleteprogrammercontributionbycontributionId(id);
         await db.deleteContributionAtid(id);

@@ -8,9 +8,17 @@
 <body>
     <%- include('../navbar') %>
     <form action="/contribution/<%= id %>/update" method="POST">
-        <label for="updateContribution">Contribution</label>
-        <input type="text" id="updateContribution" name="updateContribution" value="<%= contributionAtId %>">
-        <button type="submit">update</button>
+        <div class="inputsContainer">
+            <div>
+                <label for="updateContribution">Contribution</label>
+                <input type="text" id="updateContribution" name="updateContribution" value="<%= contributionAtId %>">
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="text" id="password" name="password" required>
+            </div>
+        </div>
+        <div class="buttonContainer"><button type="submit" class="AddButton">Update</button></div>
     </form>
     <%- include('../footer') %>
 </body>
