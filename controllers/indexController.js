@@ -4,12 +4,11 @@ import { body, query, validationResult } from "express-validator";
 
 const validatenewProgrammer = [
     body('name')
-      .trim()
-      .isLength({ min: 2, max: 10 })
-      .withMessage('Name must be between 2-10 characters')
-      .matches(/^[A-Za-z\s]+$/)
-      .withMessage('Name can only contain letters and spaces'),
-    
+        .trim()
+        .isLength({ min: 2, max: 20 })
+        .withMessage('Name must be between 2-20 characters')
+        .matches(/^[A-Za-z0-9\s]+$/)  // Added 0-9 to allow numbers
+        .withMessage('Name can only contain letters, numbers, and spaces'),
     body('image')
       .isURL()
       .withMessage('Invalid URL format')
@@ -26,9 +25,58 @@ const validatenewProgrammer = [
       }),
     
     body('contribution')
-      .isArray({ min: 1 })
-      .withMessage('Select at least one contribution'),
-    
+      .isArray({ min: 1 }).withMessage('Select at least one contribution')
+      .custom(async (contributions, { req }) => {
+        const allContributions = await db.getAllContributions(); 
+
+        const invalidSelections = contributions.filter(
+          c => !allContributions.includes(c)
+        );
+        if (invalidSelections.length > 0) {
+          throw new Error(`Invalid contributions selected: ${invalidSelections.join(', ')}`);
+        }
+        
+        const positiveContribs = contributions.filter(c => c.endsWith('+'));
+        const negativeContribs = contributions.filter(c => c.endsWith('-'));
+        
+        if (positiveContribs.length > 0 && negativeContribs.length > 0) {
+          throw new Error('Cannot mix positive and negative contributions');
+        }
+        
+        if (positiveContribs.length > 0) {
+          const selectedLevels = positiveContribs.map(c => parseInt(c));
+          const minSelected = Math.min(...selectedLevels);
+          
+          const missing = allContributions
+            .filter(c => c.endsWith('+'))
+            .filter(c => {
+              const level = parseInt(c);
+              return level <= minSelected && !contributions.includes(c);
+            });
+            
+          if (missing.length > 0) {
+            throw new Error(`Must also include: ${missing.join(', ')}`);
+          }
+        }
+        
+        if (negativeContribs.length > 0) {
+          const selectedLevels = negativeContribs.map(c => parseInt(c));
+          const maxSelected = Math.max(...selectedLevels);
+          
+          const missing = allContributions
+            .filter(c => c.endsWith('-'))
+            .filter(c => {
+              const level = parseInt(c);
+              return level >= maxSelected && !contributions.includes(c);
+            });
+            
+          if (missing.length > 0) {
+            throw new Error(`Must also include: ${missing.join(', ')}`);
+          }
+        }
+        
+        return true;
+      }),
     body('maxRating')
       .notEmpty()
       .withMessage('Title is required')
