@@ -30,7 +30,7 @@ INSERT INTO MaxRating (maxRating)
 VALUES
   ('tourist'),
   ('jiangly'),
-  ('Legendary Grand Master');
+  ('legendary Grand Master');
 
 CREATE TABLE IF NOT EXISTS ProgrammersContribution (
   programmer_id INT,
@@ -52,13 +52,32 @@ CREATE TABLE IF NOT EXISTS ProgrammersMaxRating (
 
 async function main() {
   console.log("seeding...");
+  const connectionString = process.argv[2];
+  // const connectionString = "postgresql://cpers_7nep_user:isJbLXJYkQCsBxIRLIU3Cba63QzKqHXo@dpg-d1eil4h5pdvs73c4dltg-a.oregon-postgres.render.com/cpers_7nep";
+  if (!connectionString) {
+    console.error("Error: No database connection string provided");
+    process.exit(1);
+  }
   const client = new Client({
-    connectionString: `postgresql://${process.env.user}:${process.env.password}@${process.env.host}:${process.env.port}/${process.env.database}`,
+    // connectionString: `postgresql://${process.env.user}:${process.env.password}@${process.env.host}:${process.env.port}/${process.env.database}`,
+    connectionString,
+    ssl: {
+      rejectUnauthorized: false
+    }
   });
-  await client.connect();
-  await client.query(SQL);
-  await client.end();
-  console.log("done");
+  try {
+    await client.connect();
+    console.log("Connected to database");
+    
+    await client.query(SQL);
+    console.log("Database schema created and populated");
+  } catch (err) {
+    console.error("Error during database population:", err);
+    process.exit(1);
+  } finally {
+    await client.end();
+    console.log("Database connection closed");
+  }
 }
 
 main();
