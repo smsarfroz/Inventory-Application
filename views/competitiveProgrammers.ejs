@@ -10,9 +10,9 @@
 <body>
     <%- include('navbar') %>
         <h2>Competitive Programmers</h2>
-        <form action="/new" method="GET">
+        <a href="/new">
             <div class="buttonContainer"><button class="addButton">Add Programmer</button></div>
-        </form>
+        </a>
 
         <div class="programmersContainer">
             <%programmers.map(user => {%>

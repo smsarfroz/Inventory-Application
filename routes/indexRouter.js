@@ -1,5 +1,7 @@
 import { Router } from "express";
 import db from "../db/queries.js";
+import indexController from "../controllers/indexController.js";
+
 const indexRouter = Router();
 
 indexRouter.get("/", async (req, res) => {
@@ -32,24 +34,7 @@ indexRouter.get("/new", async(req, res) => {
     res.render("programmers/addProgrammer", {title : "Add Programmer", contributions: contributions, maxRatings: maxRatings});
 });
 
-indexRouter.post("/new", async(req, res) => {
-    let { name, image, contribution, maxRating } = req.body;
-    await db.insertProgrammer(name, image);
-    const programmer_id = await db.getProgrammer_idByName(name);
-
-    // console.log(contribution);
-    
-    let contributionArray = (Array.isArray(contribution) ? contribution : [contribution]);
-    await Promise.all(contributionArray.map(async (contribution) => {
-        const contribution_id = await db.getContribution_idByName(contribution);
-        await db.insertprogrammerscontribution(programmer_id, contribution_id);
-    }));
-
-    const maxrating_id = await db.getMaxRating_idByName(maxRating);
-    await db.insertprogrammersmaxrating(programmer_id, maxrating_id);
-
-    res.redirect('/');
-});
+indexRouter.post("/new", indexController.addnewProgrammer);
 
 indexRouter.get("/:id/update", async(req, res) => {
     const { id } = req.params;

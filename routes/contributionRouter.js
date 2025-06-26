@@ -1,5 +1,7 @@
 import { Router } from "express";
 import db from "../db/queries.js";
+import contributionController from "../controllers/contributionController.js";
+
 const contributionRouter = Router();
 
 contributionRouter.get("/", async (req, res) => {
@@ -11,10 +13,7 @@ contributionRouter.get("/new", async (req, res) => {
     res.render("addContribution", { title: "addContribution"});
 });
 
-contributionRouter.post("/new", async (req, res) => {
-    await db.insertContribution(req.body.addContribution);
-    res.redirect("/contribution");
-});
+contributionRouter.post("/new", contributionController.addnewContribution);
 
 
 contributionRouter.get("/:id/update", async(req, res) => {

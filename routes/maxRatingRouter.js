@@ -1,5 +1,6 @@
 import { Router } from "express";
 import db from "../db/queries.js";
+import maxRatingController from "../controllers/maxRatingController.js";
 const maxRatingRouter = Router();
 
 maxRatingRouter.get("/", async(req, res) => {
@@ -11,10 +12,7 @@ maxRatingRouter.get("/new", async(req, res) => {
     res.render("addRating", {title: "addRating"});
 });
 
-maxRatingRouter.post("/new", async(req, res) => {
-    await db.insertRating(req.body.addTitle);
-    res.redirect('/maxRating');
-});
+maxRatingRouter.post("/new", maxRatingController.addnewRating);
 
 maxRatingRouter.get("/:id/update", async(req, res) => {
     const { id } = req.params;
