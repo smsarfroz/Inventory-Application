@@ -18,11 +18,11 @@ function endsWith(mainString, searchString) {
 
 const validatenewProgrammer = [
     body('name')
-        .trim()
-        .isLength({ min: 2, max: 30 })
-        .withMessage('Name must be between 2-30 characters')
-        .matches(/^[A-Za-z0-9\s]+$/)  
-        .withMessage('Name can only contain letters, numbers, and spaces'),
+      .trim()
+      .isLength({ min: 2, max: 30 })
+      .withMessage('Name must be between 2-30 characters')
+      .matches(/^[A-Za-z0-9\s\-_',.áéíóúÁÉÍÓÚñÑüÜ]+$/)  
+      .withMessage('Name can contain letters, numbers, spaces, hyphens, underscores, apostrophes, commas, periods, and accented characters'),
     body('image')
       .isURL()
       .withMessage('Invalid URL format')
