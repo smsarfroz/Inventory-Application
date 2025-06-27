@@ -52,8 +52,8 @@ CREATE TABLE IF NOT EXISTS ProgrammersMaxRating (
 
 async function main() {
   console.log("seeding...");
-  const connectionString = process.argv[2];
-  // const connectionString = "postgresql://cpers_7nep_user:isJbLXJYkQCsBxIRLIU3Cba63QzKqHXo@dpg-d1eil4h5pdvs73c4dltg-a.oregon-postgres.render.com/cpers_7nep";
+  // const connectionString = process.argv[2];
+  const connectionString = "postgresql://cpers_7nep_user:isJbLXJYkQCsBxIRLIU3Cba63QzKqHXo@dpg-d1eil4h5pdvs73c4dltg-a.oregon-postgres.render.com/cpers_7nep";
   if (!connectionString) {
     console.error("Error: No database connection string provided");
     process.exit(1);
@@ -65,6 +65,16 @@ async function main() {
       rejectUnauthorized: false
     }
   });
+
+/*   const client = new Client({
+    host: process.env.host,
+    port: process.env.port,
+    user: process.env.user,
+    password: process.env.password,
+    database: process.env.database,
+    ssl: false,
+  }); */
+
   try {
     await client.connect();
     console.log("Connected to database");

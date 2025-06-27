@@ -5,7 +5,7 @@ import { body, query, validationResult } from "express-validator";
 const validatenewProgrammer = [
     body('name')
         .trim()
-        .isLength({ min: 2, max: 20 })
+        .isLength({ min: 2, max: 30 })
         .withMessage('Name must be between 2-20 characters')
         .matches(/^[A-Za-z0-9\s]+$/)  
         .withMessage('Name can only contain letters, numbers, and spaces'),
