@@ -8,7 +8,7 @@ function endsWith(mainString, searchString) {
   }
   const startIndex = mainString.length - searchString.length;
 
-  for (let i = 0; i < mainString.length; ++i) {
+  for (let i = startIndex; i < mainString.length; ++i) {
     if (mainString[i] !== searchString[i]) {
       return false;
     }
