@@ -48,8 +48,8 @@ const validatenewProgrammer = [
 
         const allContributions = await db.getAllContributions(); 
         
-        const positiveContribs = contributions.filter(c => c.endsWith('+'));
-        const negativeContribs = contributions.filter(c => c.endsWith('-'));
+        const positiveContribs = contributions.filter(c => endsWith(c, '+'));
+        const negativeContribs = contributions.filter(c => endsWith(c, '-'));
         
         if (positiveContribs.length > 0 && negativeContribs.length > 0) {
           throw new Error('Cannot mix positive and negative contributions');
@@ -60,7 +60,7 @@ const validatenewProgrammer = [
           const minSelected = Math.min(...selectedLevels);
           
           const missing = allContributions
-            .filter(c => c.endsWith('+'))
+            .filter(c => endsWith(c, '+'))
             .filter(c => {
               const level = parseInt(c);
               return level <= minSelected && !contributions.includes(c);
@@ -76,7 +76,7 @@ const validatenewProgrammer = [
           const maxSelected = Math.max(...selectedLevels);
           
           const missing = allContributions
-            .filter(c => c.endsWith('-'))
+            .filter(c => endsWith(c, '-'))
             .filter(c => {
               const level = parseInt(c);
               return level >= maxSelected && !contributions.includes(c);
