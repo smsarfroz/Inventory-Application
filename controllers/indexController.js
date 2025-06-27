@@ -28,13 +28,6 @@ const validatenewProgrammer = [
       .isArray({ min: 1 }).withMessage('Select at least one contribution')
       .custom(async (contributions, { req }) => {
         const allContributions = await db.getAllContributions(); 
-
-        const invalidSelections = contributions.filter(
-          c => !allContributions.includes(c)
-        );
-        if (invalidSelections.length > 0) {
-          throw new Error(`Invalid contributions selected: ${invalidSelections.join(', ')}`);
-        }
         
         const positiveContribs = contributions.filter(c => c.endsWith('+'));
         const negativeContribs = contributions.filter(c => c.endsWith('-'));
