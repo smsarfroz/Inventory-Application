@@ -2,17 +2,14 @@ import db from "../db/queries.js"
 import asyncHandler from "express-async-handler";
 import { body, query, validationResult } from "express-validator";
 
-Object.defineProperty(String.prototype, 'endsWith', {
-    enumerable: false,
-    configurable: false,
-    writable: false,
-    value: function (searchString, position) {
-        position = position || this.length;
-        position = position - searchString.length;
-        var lastIndex = this.lastIndexOf(searchString);
-        return lastIndex !== -1 && lastIndex === position;
-    }
-});
+function endsWith(mainString, searchString) {
+  if (searchString.length > mainString.length) {
+    return false; 
+  }
+  const startIndex = mainString.length - searchString.length;
+  return mainString.substring(startIndex) === searchString;
+}
+
 const validatenewProgrammer = [
     body('name')
         .trim()
@@ -29,7 +26,7 @@ const validatenewProgrammer = [
         }
         const allowedDomains = ['codeforces.org'];
         const domain = new URL(value).hostname;
-        if (!allowedDomains.some(d => domain.endsWith(d))) {
+        if (!allowedDomains.some(d => endsWith(domain, d))) {
           throw new Error('Image must come from trusted domain');
         }
         return true;
@@ -40,8 +37,8 @@ const validatenewProgrammer = [
       .custom(async (contributions, { req }) => {
         const allContributions = await db.getAllContributions(); 
         
-        const positiveContribs = contributions.filter(c => c.endsWith('+'));
-        const negativeContribs = contributions.filter(c => c.endsWith('-'));
+        const positiveContribs = contributions.filter(c => endsWith(c, '+'));
+        const negativeContribs = contributions.filter(c => endsWith(c, '-'));
         
         if (positiveContribs.length > 0 && negativeContribs.length > 0) {
           throw new Error('Cannot mix positive and negative contributions');
@@ -52,7 +49,7 @@ const validatenewProgrammer = [
           const minSelected = Math.min(...selectedLevels);
           
           const missing = allContributions
-            .filter(c => c.endsWith('+'))
+            .filter(c => endsWith(c, '+'))
             .filter(c => {
               const level = parseInt(c);
               return level <= minSelected && !contributions.includes(c);
@@ -68,7 +65,7 @@ const validatenewProgrammer = [
           const maxSelected = Math.max(...selectedLevels);
           
           const missing = allContributions
-            .filter(c => c.endsWith('-'))
+            .filter(c => endsWith(c, '-'))
             .filter(c => {
               const level = parseInt(c);
               return level >= maxSelected && !contributions.includes(c);
