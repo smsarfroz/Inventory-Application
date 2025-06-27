@@ -39,12 +39,21 @@ const validatenewProgrammer = [
       }),
     
     body('contribution')
-      .isArray({ min: 1 }).withMessage('Select at least one contribution')
-      .custom(async (contributions, { req }) => {
+      .isObject().withMessage('Contribution must be an object')
+      .custom(async (contributionObj, { req }) => {
+        if (!contributionObj || typeof contributionObj !== 'object' || Array.isArray(contributionObj)) {
+          throw new Error('Contribution must be a non-array object');
+        }
+
+        const contributions = Object.values(contributionObj);
+        if (contributions.length === 0) {
+          throw new Error('Select at least one contribution');
+        }
+
         const allContributions = await db.getAllContributions(); 
         
-        const positiveContribs = contributions.filter(c => endsWith(c, '+'));
-        const negativeContribs = contributions.filter(c => endsWith(c, '-'));
+        const positiveContribs = contributions.filter(c => c.endsWith('+'));
+        const negativeContribs = contributions.filter(c => c.endsWith('-'));
         
         if (positiveContribs.length > 0 && negativeContribs.length > 0) {
           throw new Error('Cannot mix positive and negative contributions');
@@ -55,7 +64,7 @@ const validatenewProgrammer = [
           const minSelected = Math.min(...selectedLevels);
           
           const missing = allContributions
-            .filter(c => endsWith(c, '+'))
+            .filter(c => c.endsWith('+'))
             .filter(c => {
               const level = parseInt(c);
               return level <= minSelected && !contributions.includes(c);
@@ -71,7 +80,7 @@ const validatenewProgrammer = [
           const maxSelected = Math.max(...selectedLevels);
           
           const missing = allContributions
-            .filter(c => endsWith(c, '-'))
+            .filter(c => c.endsWith('-'))
             .filter(c => {
               const level = parseInt(c);
               return level >= maxSelected && !contributions.includes(c);
