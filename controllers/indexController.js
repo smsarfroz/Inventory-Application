@@ -7,7 +7,13 @@ function endsWith(mainString, searchString) {
     return false; 
   }
   const startIndex = mainString.length - searchString.length;
-  return mainString.substring(startIndex) === searchString;
+
+  for (let i = 0; i < mainString.length; ++i) {
+    if (mainString[i] !== searchString[i]) {
+      return false;
+    }
+  }
+  return true;
 }
 
 const validatenewProgrammer = [
