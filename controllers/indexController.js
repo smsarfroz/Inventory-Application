@@ -39,11 +39,7 @@ const validatenewProgrammer = [
       }),
     
     body('contribution')
-      .isObject().withMessage('Contribution must be an object')
       .custom(async (contributionObj, { req }) => {
-        if (!contributionObj || typeof contributionObj !== 'object' || Array.isArray(contributionObj)) {
-          throw new Error('Contribution must be a non-array object');
-        }
 
         const contributions = Object.values(contributionObj);
         if (contributions.length === 0) {
