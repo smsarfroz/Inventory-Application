@@ -6,7 +6,7 @@ const validatenewProgrammer = [
     body('name')
         .trim()
         .isLength({ min: 2, max: 30 })
-        .withMessage('Name must be between 2-20 characters')
+        .withMessage('Name must be between 2-30 characters')
         .matches(/^[A-Za-z0-9\s]+$/)  
         .withMessage('Name can only contain letters, numbers, and spaces'),
     body('image')

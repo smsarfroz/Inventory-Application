@@ -6,7 +6,7 @@ const validatenewRating = [
     body('addTitle')
     .trim()
     .notEmpty().withMessage('Title is required')
-    .isLength({ min: 2, max: 20 }).withMessage('Title must be between 2-20 characters')
+    .isLength({ min: 2, max: 30 }).withMessage('Title must be between 2-30 characters')
     .matches(/^[A-Za-z\s\-']+$/).withMessage('Title can only contain letters, spaces, hyphens, and apostrophes'),
 ]
 
