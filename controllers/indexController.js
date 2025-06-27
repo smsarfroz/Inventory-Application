@@ -30,7 +30,7 @@ const validatenewProgrammer = [
         if (!value.startsWith('https://')) {
           throw new Error('URL must use HTTPS');
         }
-        const allowedDomains = ['codeforces.org'];
+        const allowedDomains = ['userpic.codeforces.org'];
         const domain = new URL(value).hostname;
         if (!allowedDomains.some(d => endsWith(domain, d))) {
           throw new Error('Image must come from trusted domain');
